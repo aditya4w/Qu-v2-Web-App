@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qu</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="app-block">
+    <nav>
+        <div>
+
+         <h1>Qu - The Expense Tracker</h1>
+        </div>
+    </nav>    
+    <br>
+    <hr>
+    <form action="/app" method='POST'>
+         <div>
+         <label for="category">Category:</label>
+         <br>
+         <input type="text" name="category" placeholder="Ex, Food, Travel.." required>
+         <br>
+
+         <label for="description">Description:</label>
+         <br>
+         <input type="text" name="description" placeholder="Details (Optional)">
+         <br>
+            
+         <label for="amount">Amount:</label>
+         <br>
+         <label for="currency"></label>
+         <select name="currency" required>
+         <option value="₹">₹ (INR)</option>                  
+         <option value="$">$ (USD)</option>
+         <option value="€">€ (EUR)</option>                      
+         <option value="£">£ (GBP)</option>
+         </select>    
+         <input type="number" name="amount" placeholder="0.00" step="0.01" required>
+         <br>
+
+         <label for="date">Date:</label>
+         <br>
+         <input type="date" name="date">
+         <br>
+         <br>
+         <hr>
+         <br>
+
+         <button type="submit">Add Expense</button>
+       
+         <a href="/app?view=summary"><button type="button">Summary</button>
+         <a href="/app?view=analytics"><button type="button">Analytics</button>
+
+         <button type="reset">Clear</button>
+
+         </div>
+    </form>
+
+
+
+
+
+
+
+
+
+{% if view == 'summary' %}
+    <h3>History</h3>
+    {% for expense in expenses %}
+        <div class="expense-card">
+            <p>{{ expense.category }} - {{ expense.currency }}{{ expense.amount }}</p>
+        </div>
+    {% endfor %}
+{% endif %}
+
+{% if view == 'analytics' %}
+    <h3>Analytics</h3>
+    
+    <div class="card" style="background: #333; color: white; padding: 15px; border-radius: 10px;">
+        <p>Grand Total Spent:</p>
+        <h1>{{ total }}</h1>
+    </div>
+    <br>
+
+    <h3>Daily Spending</h3>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Total</th>
+        </tr>
+        {% for date, amount in daily_breakdown.items() %}
+        <tr>
+            <td>{{ date }}</td>
+            <td><strong>{{ amount }}</strong></td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+
+
+     <hr>
+</body>
+</html>

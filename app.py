@@ -72,10 +72,8 @@ def tracker():
             if day_str not in daily_breakdown:
                 daily_breakdown[day_str] = 0
             
-            daily_breakdown[day_str] += e.amount
-
+            daily_breakdown[day_str] += e.Amount
     return render_template('tracker.html', view=view_mode, expenses=expenses, total=total, daily_breakdown=daily_breakdown)
-
 
 if __name__ == '__main__':
     with app.app_context():

@@ -69,7 +69,7 @@
     <h3>History</h3>
     {% for expense in expenses %}
         <div class="expense-card">
-            <p>{{ expense.category }} - {{ expense.currency }}{{ expense.amount }}</p>
+            <p>{{ expense.category }} - {{ expense.currency }}{{ expense.amount }}</p> <button type="clear">Delete</button>
         </div>
     {% endfor %}
 {% endif %}
